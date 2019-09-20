@@ -15,8 +15,8 @@ Pod::Spec.new do |s|
 #  summary should be tweet-length, and the description more in depth.
 #
 
-s.name         = "KNAXWebViewController"
-s.version      = "0.7.6"
+s.name         = "KNAXWebVC4BC"
+s.version      = "0.0.1"
 s.summary      = "A light weight web view controller in iOS."
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,7 @@ A multi style picker view in iOS.
 * Try to keep it short, snappy and to the point.
 * Finally, don't worry about the indent, CocoaPods strips it!
 DESC
-s.homepage     = "https://github.com/zhangkn/KNAXWebViewController"
+s.homepage     = "https://github.com/zhangkn/KNAXWebVC4BC"
 # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -56,9 +56,8 @@ s.license      = "MIT"
 #  profile URL.
 #
 
-s.author             = { "kunnan" => "812410124@qq.com" }
+s.author             = { "kunnan" => "929118967@qq.com" }
 # Or just: s.author    = "aiXing"
-# s.authors            = { "aiXing" => "862099730@qq.com" }
 # s.social_media_url   = "http://twitter.com/aiXing"
 
 # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -83,7 +82,7 @@ s.platform     = :ios, "7.0"
 #  Supports git, hg, bzr, svn and HTTP.
 #
 
-s.source       = { :git => "https://github.com/zhangkn/KNAXWebViewController.git", :tag => s.version }
+s.source       = { :git => "https://github.com/zhangkn/KNAXWebVC4BC.git", :tag => s.version }
 
 
 # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
