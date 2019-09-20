@@ -1234,16 +1234,28 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
 #endif
 }
 
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 1){
+//        [WDUtil_Web cleanCacheAndCookie];
+        exit(0);
+    }
+}
+
+
+
 - (void)actionButtonClicked:(UIBarButtonItem *)sender {
     
     
     
     //    lba
     
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"是否退出？" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出", nil];
+    [alertView show];
+
     
     
-    
-    exit(0);
+//    exit(0);
     
     return;
     
