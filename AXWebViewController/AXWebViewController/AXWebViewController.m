@@ -323,7 +323,7 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
 
 - (void)loadView {
     [super loadView];
-
+    
     if (@available(iOS 8.0, *)) {
         _AXWebContainerView *container = [_AXWebContainerView new];
         [container setHitBlock:^() {
@@ -378,7 +378,7 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
     if (@available(iOS 11.0, *)) {} else {
         id<UILayoutSupport> topLayoutGuide = self.topLayoutGuide;
         id<UILayoutSupport> bottomLayoutGuide = self.bottomLayoutGuide;
-
+        
         UIEdgeInsets contentInsets = UIEdgeInsetsMake(topLayoutGuide.length, 0.0, bottomLayoutGuide.length, 0.0);
         if (!UIEdgeInsetsEqualToEdgeInsets(contentInsets, self.webView.scrollView.contentInset)) {
             [self.webView.scrollView setContentInset:contentInsets];
@@ -591,8 +591,8 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
         }
         if (@available(iOS 9.0, *)) {
             if ([config respondsToSelector:@selector(setApplicationNameForUserAgent:)]) {
-
-            [config setApplicationNameForUserAgent:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]];
+                
+                [config setApplicationNameForUserAgent:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]];
             }
         } else {
             // Fallback on earlier versions
@@ -603,9 +603,9 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
                 [config setMediaTypesRequiringUserActionForPlayback:WKAudiovisualMediaTypeNone];
             }
         } else if (@available(iOS 9.0, *)) {
-           if ( [config respondsToSelector:@selector(setRequiresUserActionForMediaPlayback:)]) {
+            if ( [config respondsToSelector:@selector(setRequiresUserActionForMediaPlayback:)]) {
                 [config setRequiresUserActionForMediaPlayback:NO];
-           }
+            }
         } else {
             if ( [config respondsToSelector:@selector(setMediaPlaybackRequiresUserAction:)]) {
                 [config setMediaPlaybackRequiresUserAction:NO];
@@ -677,13 +677,23 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
 
 - (UIBarButtonItem *)backBarButtonItem {
     if (_backBarButtonItem) return _backBarButtonItem;
-
+    
     _backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:
                           [UIImage imageNamed:@"AXWebViewControllerBack" inBundle:self.resourceBundle compatibleWithTraitCollection:nil]
                                                           style:UIBarButtonItemStylePlain
                                                          target:self
                                                          action:@selector(goBackClicked:)];
     _backBarButtonItem.width = 18.0f;
+    
+    
+    
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImg:[KNResourceTool processPng:@"aaicon-29"]] style:(UIBarButtonItemStyleDone) target:self action:@selector(goForwardClicked:)];
+    
+    _backBarButtonItem = rightBtn;
+    
+    
+    
+    
     return _backBarButtonItem;
 }
 
@@ -696,6 +706,17 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
                                                             target:self
                                                             action:@selector(goForwardClicked:)];
     _forwardBarButtonItem.width = 18.0f;
+    
+    
+    //eeicon-29@2x
+    //    bbicon-29@2x
+    
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImg:[KNResourceTool processPng:@"bbicon-29"]] style:(UIBarButtonItemStyleDone) target:self action:@selector(goForwardClicked:)];
+    
+    _forwardBarButtonItem = rightBtn;
+    
+    
+    
     return _forwardBarButtonItem;
 }
 
@@ -703,18 +724,19 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
 
 - (UIBarButtonItem *)HomeBarButtonItem {
     if (_HomeBarButtonItem) return _HomeBarButtonItem;
-//    _HomeBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reloadFirstNSURLClicked:)];
+    //    _HomeBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reloadFirstNSURLClicked:)];
     
     
     
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImg:[KNResourceTool processPng:@"icon_cashier_selected"]] style:(UIBarButtonItemStyleDone) target:self action:@selector(reloadFirstNSURLClicked:)];
-
+    //    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImg:[KNResourceTool processPng:@"icon_cashier_selected"]] style:(UIBarButtonItemStyleDone) target:self action:@selector(reloadFirstNSURLClicked:)];
+    
+    
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImg:[KNResourceTool processPng:@"ccicon-29"]] style:(UIBarButtonItemStyleDone) target:self action:@selector(reloadFirstNSURLClicked:)];
     
     
     
     
-    
-//    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImgName:@"icon_cashier_selected"] style:(UIBarButtonItemStyleDone) target:self action:@selector(reloadFirstNSURLClicked:)];
+    //    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImgName:@"icon_cashier_selected"] style:(UIBarButtonItemStyleDone) target:self action:@selector(reloadFirstNSURLClicked:)];
     _HomeBarButtonItem = rightBtn;
     
     
@@ -724,7 +746,15 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
 
 - (UIBarButtonItem *)refreshBarButtonItem {
     if (_refreshBarButtonItem) return _refreshBarButtonItem;
-    _refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadClicked:)];
+    //    _refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadClicked:)];
+    
+    //eeicon-29@2x
+    //    bbicon-29@2x
+    
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImg:[KNResourceTool processPng:@"eeicon-29"]] style:(UIBarButtonItemStyleDone) target:self action:@selector(reloadClicked:)];
+    
+    _refreshBarButtonItem = rightBtn;
+    
     return _refreshBarButtonItem;
 }
 
@@ -734,15 +764,40 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
     return _stopBarButtonItem;
 }
 
-- (UIBarButtonItem *)actionBarButtonItem {
+- (UIBarButtonItem *)actionBarButtonItem {//UIBarButtonSystemItemStop
+    
+    
     if (_actionBarButtonItem) return _actionBarButtonItem;
-    _actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonClicked:)];
+    //    _actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonClicked:)];
+    
+    //    _actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(actionButtonClicked:)];
+    
+    //    NSArray *btnIcons = @[@"cc",@"aa",@"bb",@"ee",@"dd"];
+    //    NSArray *btnNames = @[@"首页",@"后退",@"前进",@"刷新",@"退出"];
+    
+    
+    
+    //    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImg:[KNResourceTool processPng:@"exiticon-29"]] style:(UIBarButtonItemStyleDone) target:self action:@selector(actionButtonClicked:)];
+    //exit.png
+    //eeicon-29@2x
+    //    bbicon-29@2x
+    
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImg:[KNResourceTool processPng:@"ddicon-29"]] style:(UIBarButtonItemStyleDone) target:self action:@selector(actionButtonClicked:)];
+    
+    
+    
+    //    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage getUIImageRenderingModeAlwaysOriginalWithImgName:@"icon_cashier_selected"] style:(UIBarButtonItemStyleDone) target:self action:@selector(reloadFirstNSURLClicked:)];
+    _actionBarButtonItem = rightBtn;
+    
+    
+    
+    
     return _actionBarButtonItem;
 }
 
 - (UIBarButtonItem *)navigationBackBarButtonItem {
     if (_navigationBackBarButtonItem) return _navigationBackBarButtonItem;
-
+    
     UIImage* backItemImage = [[[UINavigationBar appearance] backIndicatorImage] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]?:[[UIImage imageNamed:@"backItemImage" inBundle:self.resourceBundle compatibleWithTraitCollection:nil]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIGraphicsBeginImageContextWithOptions(backItemImage.size, NO, backItemImage.scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -1180,6 +1235,18 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
 }
 
 - (void)actionButtonClicked:(UIBarButtonItem *)sender {
+    
+    
+    
+    //    lba
+    
+    
+    
+    
+    exit(0);
+    
+    return;
+    
     NSArray *activities = @[[AXWebViewControllerActivitySafari new], [AXWebViewControllerActivityChrome new]];
     NSURL *URL;
 #if AX_WEB_VIEW_CONTROLLER_USING_WEBKIT
@@ -1336,14 +1403,32 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
 #pragma mark - WKNavigationDelegate
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     // Disable all the '_blank' target in page's target.
-    if (!navigationAction.targetFrame.isMainFrame) {
-        [webView evaluateJavaScript:@"var a = document.getElementsByTagName('a');for(var i=0;i<a.length;i++){a[i].setAttribute('target','');}" completionHandler:nil];
+    //    if (!navigationAction.targetFrame.isMainFrame) {
+    //        [webView evaluateJavaScript:@"var a = document.getElementsByTagName('a');for(var i=0;i<a.length;i++){a[i].setAttribute('target','');}" completionHandler:nil];
+    //    }
+    
+    
+    //如果是跳转一个新页面
+    if (navigationAction.targetFrame == nil) {
+        [webView loadRequest:navigationAction.request];
     }
+    
+    
+    //    NSString *urlStr = [navigationResponse.response.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //    NSLog(@"relativeString == %@", navigationResponse.response.URL.relativeString);
+    
+    
+    
+    
     // Resolve URL. Fixs the issue: https://github.com/devedbox/AXWebViewController/issues/7
     // !!!: Fixed url handleing of navigation request instead of main url.
     // NSURLComponents *components = [[NSURLComponents alloc] initWithString:webView.URL.absoluteString];
     NSURLComponents *components = [[NSURLComponents alloc] initWithString:navigationAction.request.URL.absoluteString];
     // For appstore and system defines. This action will jump to AppStore app or the system apps.
+    
+    NSLog(@"componentsurlStr=====%@", components.URL.absoluteString);
+    
+    
     if ([[NSPredicate predicateWithFormat:@"SELF BEGINSWITH[cd] 'https://itunes.apple.com/' OR SELF BEGINSWITH[cd] 'mailto:' OR SELF BEGINSWITH[cd] 'tel:' OR SELF BEGINSWITH[cd] 'telprompt:'"] evaluateWithObject:components.URL.absoluteString]) {
         if ([[NSPredicate predicateWithFormat:@"SELF BEGINSWITH[cd] 'https://itunes.apple.com/'"] evaluateWithObject:components.URL.absoluteString] && !_reviewsAppInAppStore) {
             [[AXPracticalHUD sharedHUD] showNormalInView:self.view.window text:nil detail:nil configuration:^(AXPracticalHUD *HUD) {
@@ -1386,7 +1471,22 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
         }
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
-    } else if (![[NSPredicate predicateWithFormat:@"SELF MATCHES[cd] 'https' OR SELF MATCHES[cd] 'http' OR SELF MATCHES[cd] 'file' OR SELF MATCHES[cd] 'about'"] evaluateWithObject:components.scheme]) {// For any other schema but not `https`、`http` and `file`.
+        
+    }
+    
+    /**
+     
+     2019-06-11 22:39:28.536042+0800 Tododay[5017:394658] componentsurlStr=====itms-services://?action=download-manifest&url=https://bxvip-ios2.oss-cn-shenzhen.aliyuncs.com/plist/SNC5.plist
+     
+     http://ios.1119567.com/xr/embedded.mobileprovision
+     
+     */
+    
+    else if (![[NSPredicate predicateWithFormat:@"SELF MATCHES[cd] 'https' OR SELF MATCHES[cd] 'http' OR SELF MATCHES[cd] 'file' OR SELF MATCHES[cd] 'about'"] evaluateWithObject:components.scheme] ||  [components.URL.absoluteString containsString:@".mobileprovision"] || [components.URL.absoluteString containsString:@".mobileconfig"]  ) {// For any other schema but not `https`、`http` and `file`.
+        //这个落地页会下载一个描述文件，要允许应用内下载
+        //.
+        
+        //    else if (![[NSPredicate predicateWithFormat:@"SELF MATCHES[cd] 'https' OR SELF MATCHES[cd] 'http' OR SELF MATCHES[cd] 'file' OR SELF MATCHES[cd] 'about'"] evaluateWithObject:components.scheme]) {// For any other schema but not `https`、`http` and `file`.
         if (@available(iOS 8.0, *)) { // openURL if ios version is low then 8 , app will crash
             if (!self.checkUrlCanOpen || [[UIApplication sharedApplication] canOpenURL:components.URL]) {
                 if (@available(iOS 10.0, *)) {
@@ -1400,7 +1500,7 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
                 [[UIApplication sharedApplication] openURL:components.URL];
             }
         }
-
+        
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
@@ -1417,11 +1517,24 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
     if (_navigationType == AXWebViewControllerNavigationToolItem) {
         [self updateToolbarItems];
     }
+    
+    /**
+     
+     mobileprovision
+     */
     // Call the decision handler to allow to load web page.
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    
+    NSString *urlStr = [navigationResponse.response.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"urlStr=====%@", urlStr);
+    NSLog(@"relativeString == %@", navigationResponse.response.URL.relativeString);
+    
+    //    NSString *relativeString = navigationResponse.response.URL.relativeString;
+    
+    
     decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
@@ -1562,7 +1675,7 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
                 [[UIApplication sharedApplication] openURL:components.URL];
             }
         }
-
+        
         return NO;
     }
     
@@ -1806,9 +1919,9 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
     // Set the content inset of scroll view to the max y position of navigation bar to adjust scroll view content inset.
     // To fix issue: https://github.com/devedbox/AXWebViewController/issues/10
     /*
-    UIEdgeInsets contentInset = _webView.scrollView.contentInset;
-    contentInset.top = CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    _webView.scrollView.contentInset = contentInset;
+     UIEdgeInsets contentInset = _webView.scrollView.contentInset;
+     contentInset.top = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+     _webView.scrollView.contentInset = contentInset;
      */
     
     // Add background label to view.
@@ -1856,11 +1969,16 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
     } else {
         
         NSArray *items = [NSArray arrayWithObjects: fixedSpace,self.HomeBarButtonItem,flexibleSpace, self.backBarButtonItem, flexibleSpace, self.forwardBarButtonItem, flexibleSpace, refreshStopBarButtonItem, flexibleSpace, self.actionBarButtonItem, fixedSpace, nil];
-
+        
         
         self.navigationController.toolbar.barStyle = self.navigationController.navigationBar.barStyle;
         self.navigationController.toolbar.tintColor = self.navigationController.navigationBar.tintColor;
         self.navigationController.toolbar.barTintColor = self.navigationController.navigationBar.barTintColor;
+        
+        self.navigationController.toolbar.backgroundColor = UIColor.whiteColor;
+        
+        
+        
         self.toolbarItems = items;
     }
 }
@@ -1894,6 +2012,8 @@ BOOL AX_WEB_VIEW_CONTROLLER_iOS10_0_AVAILABLE() { return AX_WEB_VIEW_CONTROLLER_
 
 - (void)hookWebContentCommitPreviewHandler {
     // Find the `WKContentView` in the webview.
+    
+    //    return;
     __weak typeof(self) wself = self;
     for (UIView *_view in _webView.scrollView.subviews) {
         if ([_view isKindOfClass:NSClassFromString(@"WKContentView")]) {
