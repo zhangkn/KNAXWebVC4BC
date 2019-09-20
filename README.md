@@ -4,7 +4,7 @@
 
 
 # pod `KNAXWebViewController`
-
+<!--change  s.name 和 xx.podspec的文件必须一直-->
 
 ```
 ➜  AXWebViewController git:(master) ✗ kngit 0.7.4
