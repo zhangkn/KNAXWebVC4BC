@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "KNAXWebVC4BC"
-s.version      = "0.0.1"
+s.version      = "1.0.1"
 s.summary      = "A light weight web view controller in iOS."
 
 # This description is used to generate tags and improve search results.
